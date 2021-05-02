@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
+    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+    <title>{{title}}</title>
+    <nav class="navbar border-bottom bg-dark">
+        <div class="navbar-nav-scroll">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link text-light font-bold" href="/">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <style>
+        img {
+    max-width: 100%;
+}
+    </style>
+</head>
+<body>
+<div class="modal" tabindex="-1" role="dialog" id="resultModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <p>Challenge has been added successfully</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item waves-effect waves-light">
+                  <a class="nav-link" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="false">Upload Audio</a>
+                </li>
+                <li class="nav-item waves-effect waves-light">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Record Audio</a>
+                </li>
+                <li class="nav-item waves-effect waves-light">
+                  <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Upload Transcript</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" id="upload" role="tabpanel" aria-labelledby="upload-tab">
+                <form id="form" class="w-50 mx-auto needs-validation mt-3" method="post"  action="/upload" enctype="multipart/form-data">
+    <div class="input-group mb-4">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" name="files[]" id="file" multiple onchange="return fileValidation()" required />
+            <label class="custom-file-label" for="file" id="fileUpload">Choose Audio File</label>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button id="submitButton" class="btn btn-success" type="submit">
+            <span id="submitText"> Add Target</span>
+        </button>
+    </div>
+</form>
+                </div>
+
+
+
+
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                <div id="controls">
+     <button id="recordButton">Record</button>
+     <button id="pauseButton" disabled>Pause</button>
+     <button id="stopButton" disabled>Stop</button>
+    </div>
+    <div id="formats">Format: start recording to see sample rate</div>
+    <p><strong>Recordings:</strong></p>
+    <ol id="recordingsList"></ol>
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+                </div>
+                <div class="tab-pane fade active show" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <form id="form2" class="w-50 mx-auto needs-validation mt-3" method="post"  action="/transcript" enctype="multipart/form-data">
+    <div class="input-group mb-4">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" name="files[]" id="file2" onchange="fileValidation2()" multiple required />
+            <label class="custom-file-label" for="file2" id="fileUpload2">Choose Transcripts File</label>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button id="submitButton" class="btn btn-success" type="submit">
+            <span id="submitText"> Add Target</span>
+        </button>
+    </div>
+</form>
+                </div>
+              </div>
+
+<div id="output">
+
+</div>
+<script src="{{ url_for('static', filename='home_page.js') }}"> </script>
+</body>
+</html>
