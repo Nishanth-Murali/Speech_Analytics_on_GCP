@@ -8,6 +8,10 @@ This application can be used in/for;
 1. Recommendation Engines: The NLP model can be used to recommend similar speakers to the users. 
 2. Political speech analysis: The application can be used by media houses to analyze the speeches given by politicians.
 
+SYSTEM ARCHITECTURE:
+
+![alt text](https://github.com/Nishanth-Murali/Speech_Analytics_on_GCP/blob/main/System_design_CC.jpeg)
+
 Following are the components of Google Cloud, used in our project:
 Google Load Balancer: This component works as a traffic filter which will be the only component visible to the public, for sending HTTP requests.
 Google App Engine (GAE):
@@ -40,22 +44,26 @@ How to install and run the application on Google Cloud Platform?
 We have used Python 3.9 as the runtime for the application.
 For the front-end Flask app to run and deploy on GAE;
 1.	Open the ‘FlaskProject’ folder in an IDE and type the following command:
-	gcloud app deploy
+      gcloud app deploy
 
 2.	To open the app in a web browser, type;
-	gcloud app browse 
+      gcloud app browse 
 and click the URL that shows up.
 
 For the back-end Flask app to run and deploy on GAE;
 3.	Open the ‘NLP_model’ folder in an IDE and type the following command:
-	gcloud app deploy
+      gcloud app deploy
 
 4.	To open the app in a web browser, type;
-	gcloud app browse 
+      gcloud app browse 
 and click the URL that shows up.
 
 Thus, we can have both, the app-server and web-server instances up and running for the user to give the inputs through the UI and get back the appropriate outputs.
 
+References:
+
 [1] Programming Google App Engine with Python [Book] by O’Reilly.
+
 [2] Learning document embeddings along with their uncertainties Edit social preview; Santosh        Kesiraju, Oldřich Plchot, Lukáš Burget, Suryakanth V. Gangashetty.
+
 [3] Neural Variational Inference for Text Processing Edit social preview; Yishu Miao, Lei Yu, Phil Blunsom.
