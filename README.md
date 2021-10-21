@@ -21,42 +21,51 @@ Google Pub/Sub:
 The front-end server sends the URLs of the transcripts, that are stored in the google cloud storage, to the Publisher. These URLs are subscribed by the Subscriber at the back-end GAE that would start running the model for the given transcript (URL). This would also help in decoupling the front-end from the back-end, so that asynchrony is maintained.
 
 
-Google Cloud storage:
-Input storage:
+# Google Cloud storage:
+## Input storage:
 The inputs from the user will be uploaded to a google cloud storage’s bucket and the blob’s URL will be published to the publisher. 
-Output storage:
+
+## Output storage:
 The images obtained by running the NLP model on the GAE will be stored in another bucket, in order to achieve persistent storage. These images will be picked up by the front-end GAE, which will render these images on the UI, to be viewed by the user.
-VPC:
+
+
+# VPC:
 It acts like a network confinement for the application, so that only the authorized users can access the application and thus making it secure.
 
-CLOUD SERVICES (APIs) USED:
-Cloud storage:
+
+# CLOUD SERVICES (APIs) USED:
+
+## Cloud storage:
 This API will be used to create, access and delete user inputs and the outputs that are to be sent back to the UI. The ‘gsutil’ URLs of these objects will be used to engage the Pub/Sub API, so that the front-end and the back-end GAEs are decoupled.
-Google Pub/Sub:
+
+## Google Pub/Sub:
 The Pub/Sub API is used as the bridge between the app-server and the web-server. The input images’ ‘gsutil’ URLs will be used to publish to the Publisher and they will be subscribed by the Subscriber. This is done to ensure that both the servers (GAEs) used in the application work in an asynchronous fashion and are also decouple to enhance the performance of the system as a whole.
-Google Cloud Speech:
+
+## Google Cloud Speech:
 This handy API is used to recognize the speech that will be recorded live by speaker/user. The output obtained from the API will be a transcript text, which will be analyzed by the NLP model in the back-end.
-Google Cloud Translate:
+## Google Cloud Translate:
 This is used to translate the transcripts in different languages, given by the user, to English. These will also be fed to the NLP model in order to be processed and analyzed.
 
-How to install and run the application on Google Cloud Platform?
+# How to install and run the application on Google Cloud Platform?
 
 We have used Python 3.9 as the runtime for the application.
-For the front-end Flask app to run and deploy on GAE;
-1.	Open the ‘FlaskProject’ folder in an IDE and type the following command:
-      gcloud app deploy
+## For the front-end Flask app to run and deploy on GAE;
 
-2.	To open the app in a web browser, type;
-      gcloud app browse 
-and click the URL that shows up.
+### 1. Open the ‘FlaskProject’ folder in an IDE and type the following command:
+            gcloud app deploy
 
-For the back-end Flask app to run and deploy on GAE;
-3.	Open the ‘NLP_model’ folder in an IDE and type the following command:
-      gcloud app deploy
+### 2. To open the app in a web browser, type;
+            gcloud app browse 
+       and click the URL that shows up.
 
-4.	To open the app in a web browser, type;
-      gcloud app browse 
-and click the URL that shows up.
+## For the back-end Flask app to run and deploy on GAE;
+
+### 3. Open the ‘NLP_model’ folder in an IDE and type the following command:
+            gcloud app deploy
+
+### 4. To open the app in a web browser, type;
+            gcloud app browse 
+       and click the URL that shows up.
 
 Thus, we can have both, the app-server and web-server instances up and running for the user to give the inputs through the UI and get back the appropriate outputs.
 
